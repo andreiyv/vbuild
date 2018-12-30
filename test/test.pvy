@@ -2,6 +2,8 @@ import vapoursynth as vs
 
 core = vs.get_core()
 
+#core.std.LoadPlugin(path="/home/voran/vbuild/workspace/lib/vapoursynth/ffms2.so")
+
 src = core.ffms2.Source(source='mountains.mp4')
 src = core.hist.Levels(src)
 
