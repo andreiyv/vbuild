@@ -142,26 +142,26 @@ echo "ffmpeg-build-script v$VERSION"
 echo "========================="
 echo ""
 
-case "$1" in
-"--cleanup")
-	remove_dir $PACKAGES
-	remove_dir $WORKSPACE
-	echo "Cleanup done."
-	echo ""
-	exit 0
-    ;;
-"--build")
+#case "$1" in
+#"--cleanup")
+#	remove_dir $PACKAGES
+#	remove_dir $WORKSPACE
+#	echo "Cleanup done."
+#	echo ""
+#	exit 0
+#    ;;
+#"--build")
 
-    ;;
-*)
-    echo "Usage: $0"
-    echo "   --build: start building process"
-    echo "   --cleanup: remove all working dirs"
-    echo "   --help: show this help"
-    echo ""
-    exit 0
-    ;;
-esac
+#    ;;
+#*)
+#    echo "Usage: $0"
+#    echo "   --build: start building process"
+#    echo "   --cleanup: remove all working dirs"
+#    echo "   --help: show this help"
+#    echo ""
+#    exit 0
+#    ;;
+#esac
 
 echo "Using $MJOBS make jobs simultaneously."
 
@@ -170,6 +170,10 @@ make_dir $WORKSPACE
 
 export PATH=${WORKSPACE}/bin:$PATH
 
+echo "export PATH="$PWD"/workspace/bin:\$PATH" > vset.sh
+echo "export LD_LIBRARY_PATH="$PWD"/workspace/lib:\$LD_LIBRARY_PATH" >> vset.sh
+echo "export PYTHONPATH="$PWD"/workspace/lib:\$PYTHONPATH" >> vset.sh
+echo "export PYTHONPATH="$PWD"/workspace/lib/python3.6/site-packages:\$PYTHONPATH" >> vset.sh
 
 if ! command_exists "make"; then
     echo "make not installed.";
@@ -506,11 +510,12 @@ fi
 
 if build "fft3dfilter"; then
         download "https://github.com/andreiyv/fft3dfilter/archive/master.zip" "fft3dfilter.zip"
-        cd $PACKAGES/fft3dfilter-master || exit
-        execute make
-        execute cp $PACKAGES/fft3dfilter-master/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
+        cd $PACKAGES/fft3dfilter-master/src || exit
+        execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC
+        execute cp $PACKAGES/fft3dfilter-master/src/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
         build_done "fft3dfilter"
 fi
+
 
 
 #if [[ $AUTOINSTALL == "yes" ]]; then
