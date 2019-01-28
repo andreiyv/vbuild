@@ -485,8 +485,6 @@ echo ""
 echo "Building done. The binary can be found here: $WORKSPACE/bin/ffmpeg"
 echo ""
 
-
-
 if build "ffms2"; then
         download "https://github.com/FFMS/ffms2/archive/ffms2000.zip" "ffms2.zip"
         cd $PACKAGES/ffms2-ffms2000 || exit
@@ -500,7 +498,22 @@ if build "ffms2"; then
         build_done "ffms2"
 fi
 
+if build "fftw"; then
+        download "http://www.fftw.org/fftw-3.3.8.tar.gz" "fftw-3.3.8.tar.gz"
+        cd $PACKAGES/fftw-3.3.8 || exit
+        execute ./configure --prefix=${WORKSPACE} --enable-shared --enable-threads --enable-float
+        execute make -j $MJOBS
+        execute make install
+        build_done "fftw"
+fi
 
+if build "fft3dfilter"; then
+        download "https://github.com/andreiyv/fft3dfilter/archive/master.zip" "fft3dfilter.zip"
+        cd $PACKAGES/fft3dfilter-master || exit
+        execute make
+        execute cp $PACKAGES/fft3dfilter-master/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
+        build_done "fft3dfilter"
+fi
 
 
 #if [[ $AUTOINSTALL == "yes" ]]; then
