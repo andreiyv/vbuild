@@ -509,9 +509,9 @@ fi
 
 if build "fft3dfilter"; then
         download "https://github.com/andreiyv/fft3dfilter/archive/master.zip" "fft3dfilter.zip"
-        cd $PACKAGES/fft3dfilter-master || exit
-        execute make
-        execute cp $PACKAGES/fft3dfilter-master/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
+        cd $PACKAGES/fft3dfilter-master/src || exit
+        execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC 
+        execute cp $PACKAGES/fft3dfilter-master/src/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
         build_done "fft3dfilter"
 fi
 
