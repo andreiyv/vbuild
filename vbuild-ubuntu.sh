@@ -175,6 +175,11 @@ make_dir $WORKSPACE
 export PATH=${WORKSPACE}/bin:$PATH
 export PKG_CONFIG_PATH=${WORKSPACE}/lib/pkgconfig:$PKG_CONFIG_PATH
 
+echo "export PATH="$PWD"/workspace/bin:\$PATH" > vset.sh
+echo "export LD_LIBRARY_PATH="$PWD"/workspace/lib:\$LD_LIBRARY_PATH" >> vset.sh
+echo "export PYTHONPATH="$PWD"/workspace/lib:\$PYTHONPATH" >> vset.sh
+echo "export PYTHONPATH="$PWD"/workspace/lib/python3.6/site-packages:\$PYTHONPATH" >> vset.sh
+
 if ! command_exists "make"; then
     echo "make not installed.";
     exit 1
