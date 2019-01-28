@@ -4,7 +4,7 @@
 # https://github.com/markus-perl/ffmpeg-build-script
 
 sudo apt-get assume-yes install build-essential
-sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake
+sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev
 
 VERSION=1.0
 CWD=$(pwd)
@@ -370,17 +370,17 @@ if build "pkg-config"; then
 	build_done "pkg-config"
 fi
 
-if build "cmake"; then
-	download "https://cmake.org/files/v3.11/cmake-3.11.3.tar.gz" "cmake-3.11.3.tar.gz"
-	cd $PACKAGES/cmake-3.11.3  || exit
-	rm Modules/FindJava.cmake
-	perl -p -i -e "s/get_filename_component.JNIPATH/#get_filename_component(JNIPATH/g" Tests/CMakeLists.txt
-	perl -p -i -e "s/get_filename_component.JNIPATH/#get_filename_component(JNIPATH/g" Tests/CMakeLists.txt
-	execute ./configure --prefix=${WORKSPACE}
-	execute make -j $MJOBS
-	execute make install
-	build_done "cmake"
-fi
+#if build "cmake"; then
+#	download "https://cmake.org/files/v3.11/cmake-3.11.3.tar.gz" "cmake-3.11.3.tar.gz"
+#	cd $PACKAGES/cmake-3.11.3  || exit
+#	rm Modules/FindJava.cmake
+#	perl -p -i -e "s/get_filename_component.JNIPATH/#get_filename_component(JNIPATH/g" Tests/CMakeLists.txt
+#	perl -p -i -e "s/get_filename_component.JNIPATH/#get_filename_component(JNIPATH/g" Tests/CMakeLists.txt
+#	execute ./configure --prefix=${WORKSPACE}
+#	execute make -j $MJOBS
+#	execute make install
+#	build_done "cmake"
+#fi
 
 
 
@@ -406,14 +406,14 @@ fi
 #fi
 
 
-if build "SDL"; then
-        download "https://www.libsdl.org/release/SDL2-2.0.9.tar.gz" "SDL2-2.0.9.tar.gz"
-        cd $PACKAGES/SDL2-2.0.9 || exit
-        execute ./configure --prefix=${WORKSPACE} --enable-shared
-        execute make -j $MJOBS
-        execute make install
-        build_done "SDL"
-fi
+#if build "SDL"; then
+#        download "https://www.libsdl.org/release/SDL2-2.0.9.tar.gz" "SDL2-2.0.9.tar.gz"
+#        cd $PACKAGES/SDL2-2.0.9 || exit
+#        execute ./configure --prefix=${WORKSPACE} --enable-shared
+#        execute make -j $MJOBS
+#        execute make install
+#        build_done "SDL"
+#fi
 
 
 if build "vapoursynth"; then
