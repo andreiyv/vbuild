@@ -400,7 +400,16 @@ if build "vapoursynth"; then
         build_done "vapoursynth"
 fi
 
-
+if build "ihistogram"; then
+        download "https://github.com/dubhater/vapoursynth-histogram/archive/master.zip" "histogram.zip"
+        cd $PACKAGES/vapoursynth-histogram-master
+        execute chmod +x ./autogen.sh
+        execute ./autogen.sh
+        execute ./configure --prefix=${WORKSPACE} --enable-shared
+        execute make -j $MJOBS
+        execute make install
+        build_done "histogram"
+fi
 
 build "ffmpeg"
 download "http://ffmpeg.org/releases/ffmpeg-3.4.5.tar.gz" "ffmpeg-3.4.5.tar.gz"
