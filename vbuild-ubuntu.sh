@@ -208,16 +208,16 @@ fi
 export LD_LIBRARY_PATH=${WORKSPACE}/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=${WORKSPACE}/lib64:$LD_LIBRARY_PATH
 
-#if build "python"; then
-#	download "https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz" "Python-3.6.3.tgz"
-#	cd $PACKAGES/Python-3.6.3
-#	execute ./configure --prefix=${WORKSPACE}  --enable-shared
-#	execute make
-#	execute make install
-#	cd ${WORKSPACE}/bin
- #       execute ./pip3 install Cython
-  #      build_done "python"
-#fi
+if build "python"; then
+	download "https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz" "Python-3.6.3.tgz"
+	cd $PACKAGES/Python-3.6.3
+	execute ./configure --prefix=${WORKSPACE}  --enable-shared
+	execute make
+	execute make install
+	cd ${WORKSPACE}/bin
+        execute ./pip3 install Cython
+        build_done "python"
+fi
 
 if build "zimg"; then
         download "https://github.com/sekrit-twc/zimg/archive/master.zip" "zimg.zip"
@@ -408,6 +408,7 @@ if build "ihistogram"; then
         execute ./configure --prefix=${WORKSPACE} --enable-shared
         execute make -j $MJOBS
         execute make install
+	execute mv ${WORKSPACE}/lib/libhistogram.* ${WORKSPACE}/lib/vapoursynth
         build_done "histogram"
 fi
 
@@ -417,7 +418,6 @@ cd $PACKAGES/ffmpeg-3.4.5 || exit
 ./configure \
     --pkgconfigdir="$WORKSPACE/lib/pkgconfig" \
     --prefix=${WORKSPACE} \
-    --pkg-config-flags="--static" \
     --extra-cflags="-I$WORKSPACE/include" \
     --extra-ldflags="-L$WORKSPACE/lib" \
     --extra-libs="-lpthread -lm" \
@@ -499,7 +499,7 @@ if build "fft3dfilter"; then
         download "https://github.com/andreiyv/fft3dfilter/archive/master.zip" "fft3dfilter.zip"
         cd $PACKAGES/fft3dfilter-master/src || exit
 #        execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC 
-	execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC -Wno-reorder -DHAVE_FFTW3_MAKE_PLANNER_THREAD_SAFE -L../../../workspace/lib/vapoursynth -lfftw3f_threads -lfftw3f
+	execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC -Wno-reorder -DHAVE_FFTW3_MAKE_PLANNER_THREAD_SAFE -L../../../workspace/lib -lfftw3f_threads -lfftw3f
         execute cp $PACKAGES/fft3dfilter-master/src/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
         build_done "fft3dfilter"
 fi
