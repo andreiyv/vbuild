@@ -205,45 +205,19 @@ if build "lame"; then
 	build_done "lame"
 fi
 
-
-
-#if build "binutils"; then
-#        download "ftp://sourceware.org/pub/binutils/snapshots/binutils-2.27.90.tar.bz2" "binutils-2.27.90.tar.bz2"
-#        cd $PACKAGES/binutils-2.27.90 || exit
-#        execute ./configure --prefix=${WORKSPACE}
-#        execute make -j $MJOBS
-#        execute make install
-#        build_done "binutils"
-#fi
-
-
-#if build "gcc"; then
-#        download "http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz" "gcc-7.4.0.tar.gz"
-#        cd $PACKAGES/gcc* || exit
-#	execute contrib/download_prerequisites
-#        execute ./configure --prefix=${WORKSPACE} -disable-multilib
-#        execute make -j $MJOBS
-#        execute make install
-#        build_done "gcc"
-#fi
-
-
-
 export LD_LIBRARY_PATH=${WORKSPACE}/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=${WORKSPACE}/lib64:$LD_LIBRARY_PATH
 
-
-
-if build "python"; then
-	download "https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz" "Python-3.6.3.tgz"
-	cd $PACKAGES/Python-3.6.3
-	execute ./configure --prefix=${WORKSPACE}  --enable-shared
-	execute make
-	execute make install
-	cd ${WORKSPACE}/bin
-        execute ./pip3 install Cython
-        build_done "python"
-fi
+#if build "python"; then
+#	download "https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz" "Python-3.6.3.tgz"
+#	cd $PACKAGES/Python-3.6.3
+#	execute ./configure --prefix=${WORKSPACE}  --enable-shared
+#	execute make
+#	execute make install
+#	cd ${WORKSPACE}/bin
+ #       execute ./pip3 install Cython
+  #      build_done "python"
+#fi
 
 if build "zimg"; then
         download "https://github.com/sekrit-twc/zimg/archive/master.zip" "zimg.zip"
@@ -255,14 +229,14 @@ if build "zimg"; then
         build_done "zimg"
 fi
 
-if build "yasm"; then
-	download "http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz" "yasm-1.3.0.tar.gz"
-	cd $PACKAGES/yasm-1.3.0 || exit
-	execute ./configure --prefix=${WORKSPACE}
-	execute make -j $MJOBS
-	execute make install
-	build_done "yasm"
-fi
+#if build "yasm"; then
+#	download "http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz" "yasm-1.3.0.tar.gz"
+#	cd $PACKAGES/yasm-1.3.0 || exit
+#	execute ./configure --prefix=${WORKSPACE}
+#	execute make -j $MJOBS
+#	execute make install
+#	build_done "yasm"
+#fi
 
 if build "nasm"; then
 	download "http://www.nasm.us/pub/nasm/releasebuilds/2.14/nasm-2.14.tar.gz" "nasm.tar.gz"
@@ -515,7 +489,8 @@ fi
 if build "fft3dfilter"; then
         download "https://github.com/andreiyv/fft3dfilter/archive/master.zip" "fft3dfilter.zip"
         cd $PACKAGES/fft3dfilter-master/src || exit
-        execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC 
+#        execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC 
+	execute g++ -shared -o fft3dfilter.so fft3dfilter_c.cpp FFT3DFilter.cpp Plugin.cpp -I../../../workspace/include/vapoursynth -I../../../workspace/include -fPIC -Wno-reorder -DHAVE_FFTW3_MAKE_PLANNER_THREAD_SAFE -L../../../workspace/lib/vapoursynth -lfftw3f_threads -lfftw3f
         execute cp $PACKAGES/fft3dfilter-master/src/fft3dfilter.so ${WORKSPACE}/lib/vapoursynth/fft3dfilter.so
         build_done "fft3dfilter"
 fi
