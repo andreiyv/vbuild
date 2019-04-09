@@ -1,1 +1,1 @@
-vspipe --y4m test1.pvy - | ffplay -i pipe:
+vspipe --y4m histogram.pvy - | ffplay -i pipe:

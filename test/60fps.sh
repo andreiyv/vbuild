@@ -17,5 +17,5 @@ else
 
 fi
 
-vspipe --y4m convert-to-60fps.pvy - | ffplay -i pipe:
+vspipe --y4m 60fps.pvy - | ffplay -i pipe:
 

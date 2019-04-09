@@ -1,1 +1,1 @@
-vspipe --y4m test3.pvy - | ffplay -i pipe:
+vspipe --y4m denoise.pvy - | ffplay -i pipe:

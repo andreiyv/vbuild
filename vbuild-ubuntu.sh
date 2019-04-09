@@ -3,8 +3,8 @@
 # this script is based on:
 # https://github.com/markus-perl/ffmpeg-build-script
 
-sudo apt-get assume-yes install build-essential
-sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev
+#sudo apt-get assume-yes install build-essential
+#sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev
 
 VERSION=1.0
 CWD=$(pwd)
@@ -360,7 +360,7 @@ fi
 
 if build "x265"; then
 	download "https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz" "x265-3.0.tar.gz"
-	cd $PACKAGES/x265_2.9 || exit
+	cd $PACKAGES/x265_3.0 || exit
 	cd source || exit
 	execute cmake -DCMAKE_INSTALL_PREFIX:PATH=${WORKSPACE} -DENABLE_SHARED:bool=on .
 	execute make -j $MJOBS
