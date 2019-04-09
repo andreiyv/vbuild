@@ -1,0 +1,4 @@
+import vapoursynth as vs
+core = vs.get_core()
+video = core.std.BlankClip(width=640,height=480, format=vs.RGB24, length=500, fpsnum=2997, fpsden=125, color=[14, 140, 160])
+video.set_output()
