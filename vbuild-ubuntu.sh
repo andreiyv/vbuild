@@ -290,7 +290,7 @@ if build "xvidcore"; then
 fi
 
 if build "x264"; then
-	download "http://ftp.videolan.org/pub/x264/snapshots/x264-snapshot-20181224-2245-stable.tar.bz2" "last_x264.tar.bz2"
+	download "http://ftp.videolan.org/pub/x264/snapshots/x264-snapshot-20190408-2245-stable.tar.bz2" "last_x264.tar.bz2"
 	cd $PACKAGES/x264-snapshot-* || exit
 
 	if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -359,7 +359,7 @@ fi
 
 
 if build "x265"; then
-	download "https://bitbucket.org/multicoreware/x265/downloads/x265_2.9.tar.gz" "x265-2.9.tar.gz"
+	download "https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz" "x265-3.0.tar.gz"
 	cd $PACKAGES/x265_2.9 || exit
 	cd source || exit
 	execute cmake -DCMAKE_INSTALL_PREFIX:PATH=${WORKSPACE} -DENABLE_SHARED:bool=on .
@@ -413,8 +413,11 @@ if build "ihistogram"; then
 fi
 
 build "ffmpeg"
-download "http://ffmpeg.org/releases/ffmpeg-3.4.5.tar.gz" "ffmpeg-3.4.5.tar.gz"
-cd $PACKAGES/ffmpeg-3.4.5 || exit
+#download "http://ffmpeg.org/releases/ffmpeg-3.4.5.tar.gz" "ffmpeg-3.4.5.tar.gz"
+download "http://ffmpeg.org/releases/ffmpeg-4.1.3.tar.gz" "ffmpeg-4.1.3.tar.gz"
+#cd $PACKAGES/ffmpeg-3.4.5 || exit
+cd $PACKAGES/ffmpeg-4.1.3 || exit
+
 ./configure \
     --pkgconfigdir="$WORKSPACE/lib/pkgconfig" \
     --prefix=${WORKSPACE} \
