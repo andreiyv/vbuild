@@ -1,4 +1,4 @@
-export PATH=/home/voran/vbuild/workspace/bin:$PATH
-export LD_LIBRARY_PATH=/home/voran/vbuild/workspace/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=/home/voran/vbuild/workspace/lib:$PYTHONPATH
-export PYTHONPATH=/home/voran/vbuild/workspace/lib/python3.6/site-packages:$PYTHONPATH
+export PATH=$PWD/workspace/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/workspace/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=$PWD/workspace/lib:$PYTHONPATH
+export PYTHONPATH=$PWD/workspace/lib/python3.6/site-packages:$PYTHONPATH
