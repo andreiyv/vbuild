@@ -3,7 +3,7 @@
 if [ ! -f "../workspace/lib/vapoursynth/libsvpflow1_vs64.so" ] && [ ! -f "../workspace/lib/vapoursynth/libsvpflow2_vs64.so" ]; then
 	mkdir /tmp/svp
 
-	curl --silent http://www.svp-team.com/files/gpl/svpflow-4.2.0.142.zip --output /tmp/svp/plugin.zip
+	curl --silent https://www.svp-team.com/files/gpl/svpflow-4.2.0.142.zip --output /tmp/svp/plugin.zip
 
 	unzip -o -d /tmp/svp /tmp/svp/plugin.zip
 
