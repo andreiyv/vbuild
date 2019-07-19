@@ -209,8 +209,8 @@ export LD_LIBRARY_PATH=${WORKSPACE}/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=${WORKSPACE}/lib64:$LD_LIBRARY_PATH
 
 if build "python"; then
-	download "https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz" "Python-3.6.3.tgz"
-	cd $PACKAGES/Python-3.6.3
+	download "https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz" "Python-3.7.4.tgz"
+	cd $PACKAGES/Python-3.7.4
 	execute ./configure --prefix=${WORKSPACE}  --enable-shared
 	execute make
 	execute make install
@@ -391,8 +391,8 @@ fi
 
 
 if build "vapoursynth"; then
-	download "https://github.com/vapoursynth/vapoursynth/archive/R45.1.zip" "vapoursynth.zip"
-	cd $PACKAGES/vapoursynth-R45.1
+	download "https://github.com/vapoursynth/vapoursynth/archive/R46.zip" "vapoursynth.zip"
+	cd $PACKAGES/vapoursynth-R46
 	execute ./autogen.sh
 	execute ./configure --prefix=${WORKSPACE} --enable-shared --with-cython=${WORKSPACE}/bin/cython
 	execute make
