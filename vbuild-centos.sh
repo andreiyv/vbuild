@@ -174,6 +174,7 @@ make_dir $WORKSPACE
 
 export PATH=${WORKSPACE}/bin:$PATH
 export PKG_CONFIG_PATH=${WORKSPACE}/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=${WORKSPACE}/lib64/pkgconfig:$PKG_CONFIG_PATH
 
 #echo "export PATH="$PWD"/workspace/bin:\$PATH" > vset.sh
 #echo "export LD_LIBRARY_PATH="$PWD"/workspace/lib:\$LD_LIBRARY_PATH" >> vset.sh
@@ -196,17 +197,37 @@ if ! command_exists "curl"; then
 fi
 
 
-if build "lame"; then
-	download "http://kent.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz" "lame-3.100.tar.gz"
-	cd $PACKAGES/lame-3.100 || exit
-	execute ./configure --prefix=${WORKSPACE} --enable-shared
-	execute make -j $MJOBS
-	execute make install
-	build_done "lame"
-fi
+#if build "lame"; then
+#	download "http://kent.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz" "lame-3.100.tar.gz"
+#	cd $PACKAGES/lame-3.100 || exit
+#	execute ./configure --prefix=${WORKSPACE} --enable-shared
+#	execute make -j $MJOBS
+#	execute make install
+#	build_done "lame"
+#fi
 
 export LD_LIBRARY_PATH=${WORKSPACE}/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=${WORKSPACE}/lib64:$LD_LIBRARY_PATH
+
+
+
+
+#if build "cmake"; then
+#	download "https://github.com/Kitware/CMake/releases/download/v3.15.3/cmake-3.15.3.tar.gz" "cmake-3.15.3.tar.gz"
+#	cd $PACKAGES/cmake-3.15.3
+#	execute ./configure --prefix=${WORKSPACE}
+#	execute gmake
+#	execute gmake install
+#fi
+
+#cd ${PACKAGES}
+#pwd
+#git clone https://aomedia.googlesource.com/aom
+#${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
+#make
+#make install
+
+
 
 if build "python"; then
 	download "https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz" "Python-3.7.4.tgz"
@@ -414,9 +435,9 @@ fi
 
 build "ffmpeg"
 #download "http://ffmpeg.org/releases/ffmpeg-3.4.5.tar.gz" "ffmpeg-3.4.5.tar.gz"
-download "http://ffmpeg.org/releases/ffmpeg-4.1.3.tar.gz" "ffmpeg-4.1.3.tar.gz"
+download "http://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz" "ffmpeg-4.2.1.tar.gz"
 #cd $PACKAGES/ffmpeg-3.4.5 || exit
-cd $PACKAGES/ffmpeg-4.1.3 || exit
+cd $PACKAGES/ffmpeg-4.2.1 || exit
 
 ./configure \
     --pkgconfigdir="$WORKSPACE/lib/pkgconfig" \
@@ -443,6 +464,7 @@ cd $PACKAGES/ffmpeg-4.1.3 || exit
 	--enable-libopencore_amrwb \
 	--enable-libopencore_amrnb \
 	--enable-filters \
+	--enable-libaom \
 	--enable-sdl2
 	# enable all filters
 	# enable AAC de/encoding via libfdk-aac [no]
@@ -477,15 +499,15 @@ echo "Building done. The binary can be found here: $WORKSPACE/bin/ffmpeg"
 echo ""
 
 if build "ffms2"; then
-        download "https://github.com/FFMS/ffms2/archive/ffms2000.zip" "ffms2.zip"
-        cd $PACKAGES/ffms2-ffms2000 || exit
+        download "https://github.com/FFMS/ffms2/archive/2.23.tar.gz" "2.23.tar.gz"
+        cd $PACKAGES/ffms2-2.23 || exit
         execute ./autogen.sh
 #	execute autoreconf -i
 #        execute ./autogen.sh
         execute ./configure --prefix=${WORKSPACE} --disable-static --enable-shared
         execute make -j $MJOBS
 #        execute make install
-	execute cp $PACKAGES/ffms2-ffms2000/src/core/.libs/libffms2.so.4.0.0 ${WORKSPACE}/lib/vapoursynth/ffms2.so
+	execute cp $PACKAGES/ffms2-2.23/src/core/.libs/libffms2.so.4.0.0 ${WORKSPACE}/lib/vapoursynth/ffms2.so
         build_done "ffms2"
 fi
 
