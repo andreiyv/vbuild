@@ -1,5 +1,5 @@
-# vbuild-ubuntu
-Vapoursynth build script for Ubuntu (works fine for 18.04)
+# vbuild-centos
+Vapoursynth build script for CentOS (works fine for 7.6)
 
 You will receive Vapoursynth + filters + ffmpeg/ffplay/ffprobe when installation completed.
 
