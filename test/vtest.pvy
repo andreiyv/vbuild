@@ -1,4 +1,0 @@
-import vapoursynth as vs
-core = vs.get_core()
-input_clip = core.std.BlankClip(format=vs.YUV420P8, length=1000, color=[128, 190, 128])
-input_clip.set_output()
