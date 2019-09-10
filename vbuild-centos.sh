@@ -503,7 +503,7 @@ fi
 echo ""
 echo "Building done. The binary can be found here: $WORKSPACE/bin/ffmpeg"
 echo ""
-
+build_done "ffmpeg"
 fi
 
 if build "ffms2"; then
