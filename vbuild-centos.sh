@@ -420,8 +420,8 @@ fi
 
 
 if build "vapoursynth"; then
-	download "https://github.com/vapoursynth/vapoursynth/archive/R46.zip" "vapoursynth.zip"
-	cd $PACKAGES/vapoursynth-R46
+	download "https://github.com/vapoursynth/vapoursynth/archive/R47.2.zip" "vapoursynth.zip"
+	cd $PACKAGES/vapoursynth-R47.2
 	execute ./autogen.sh
 	execute ./configure --prefix=${WORKSPACE} --enable-shared --with-cython=${WORKSPACE}/bin/cython
 	execute make
