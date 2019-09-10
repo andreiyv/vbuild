@@ -1,7 +1,7 @@
 import vapoursynth as vs
 
 core = vs.get_core()
-src = core.ffms2.Source(source='mountains.mp4')
+src = core.ffms2.Source(source='../mountains.mp4')
 
 resized = core.resize.Bicubic(clip=src,width=480, height=270)
 clip_Y = core.std.ShufflePlanes(clips=resized, planes=[0, 0, 0], colorfamily=vs.YUV)

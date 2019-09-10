@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ ! -f "../workspace/lib/vapoursynth/libsvpflow1_vs64.so" ] && [ ! -f "../workspace/lib/vapoursynth/libsvpflow2_vs64.so" ]; then
+if [ ! -f "../../workspace/lib/vapoursynth/libsvpflow1_vs64.so" ] && [ ! -f "../../workspace/lib/vapoursynth/libsvpflow2_vs64.so" ]; then
 	mkdir /tmp/svp
 
 	curl --silent https://www.svp-team.com/files/gpl/svpflow-4.2.0.142.zip --output /tmp/svp/plugin.zip
 
 	unzip -o -d /tmp/svp /tmp/svp/plugin.zip
 
-	cp /tmp/svp/svpflow-*/lib-linux/*.so ../workspace/lib/vapoursynth/ 
+	cp /tmp/svp/svpflow-*/lib-linux/*.so ../../workspace/lib/vapoursynth/
 
 	rm -rf /tmp/svp
 

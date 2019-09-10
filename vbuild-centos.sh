@@ -424,7 +424,7 @@ if build "vapoursynth"; then
         build_done "vapoursynth"
 fi
 
-if build "ihistogram"; then
+if build "histogram"; then
         download "https://github.com/dubhater/vapoursynth-histogram/archive/master.zip" "histogram.zip"
         cd $PACKAGES/vapoursynth-histogram-master
         execute chmod +x ./autogen.sh
@@ -436,10 +436,8 @@ if build "ihistogram"; then
         build_done "histogram"
 fi
 
-build "ffmpeg"
-#download "http://ffmpeg.org/releases/ffmpeg-3.4.5.tar.gz" "ffmpeg-3.4.5.tar.gz"
+if build "ffmpeg"; then
 download "http://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz" "ffmpeg-4.2.1.tar.gz"
-#cd $PACKAGES/ffmpeg-3.4.5 || exit
 cd $PACKAGES/ffmpeg-4.2.1 || exit
 
 ./configure \
@@ -501,6 +499,8 @@ echo ""
 echo "Building done. The binary can be found here: $WORKSPACE/bin/ffmpeg"
 echo ""
 
+fi
+
 if build "ffms2"; then
         download "https://github.com/FFMS/ffms2/archive/2.23.tar.gz" "2.23.tar.gz"
         cd $PACKAGES/ffms2-2.23 || exit
@@ -532,7 +532,7 @@ if build "fft3dfilter"; then
         build_done "fft3dfilter"
 fi
 
-sed -i "s|pwd_dir|$PWD|g" set-env.sh
+sed -i "s|pwd_dir|$CWD|g" ${CWD}/set-env.sh
 
 #if [[ $AUTOINSTALL == "yes" ]]; then
 #	if command_exists "sudo"; then

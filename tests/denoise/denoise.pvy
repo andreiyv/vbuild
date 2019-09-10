@@ -2,7 +2,7 @@ import vapoursynth as vs
 
 core = vs.get_core()
 
-src = core.ffms2.Source(source='mountains.mp4')
+src = core.ffms2.Source(source='../mountains.mp4')
 
 src = core.fft3dfilter.FFT3DFilter(clip=src, sigma=8.0, planes=[0,1,2], bt=1, bw=16, bh=16, ow=8, oh=8, ncpu=4)
 
