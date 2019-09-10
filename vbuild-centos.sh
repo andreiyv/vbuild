@@ -4,7 +4,7 @@
 # https://github.com/markus-perl/ffmpeg-build-script
 
 #sudo apt-get assume-yes install build-essential
-#sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev
+#sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev libffi-dev
 
 VERSION=1.0
 CWD=$(pwd)
@@ -186,6 +186,12 @@ if ! command_exists "make"; then
     exit 1
 fi
 
+if ! command_exists "gmake"; then
+    echo "gmake not installed.";
+    exit 1
+fi
+
+
 if ! command_exists "g++"; then
     echo "g++ not installed.";
     exit 1
@@ -223,11 +229,10 @@ fi
 
 if build "av1"; then
 	cd ${PACKAGES}
-	pwd
-	git clone https://aomedia.googlesource.com/aom
-	${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
-	make
-	make install
+	execute git clone https://aomedia.googlesource.com/aom
+	execute ${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
+	execute make
+	execute make install
 	build_done "av1"
 fi
 
