@@ -197,36 +197,39 @@ if ! command_exists "curl"; then
 fi
 
 
-#if build "lame"; then
-#	download "http://kent.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz" "lame-3.100.tar.gz"
-#	cd $PACKAGES/lame-3.100 || exit
-#	execute ./configure --prefix=${WORKSPACE} --enable-shared
-#	execute make -j $MJOBS
-#	execute make install
-#	build_done "lame"
-#fi
+if build "lame"; then
+	download "http://kent.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz" "lame-3.100.tar.gz"
+	cd $PACKAGES/lame-3.100 || exit
+	execute ./configure --prefix=${WORKSPACE} --enable-shared
+	execute make -j $MJOBS
+	execute make install
+	build_done "lame"
+fi
 
 export LD_LIBRARY_PATH=${WORKSPACE}/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=${WORKSPACE}/lib64:$LD_LIBRARY_PATH
 
 
 
+if build "cmake"; then
+	download "https://github.com/Kitware/CMake/archive/release.zip" "CMake-release.zip"
+	cd $PACKAGES/CMake-release
+	execute ./configure --prefix=${WORKSPACE}
+	execute gmake
+	execute gmake install
+	build_done "cmake"
+fi
 
-#if build "cmake"; then
-#	download "https://github.com/Kitware/CMake/releases/download/v3.15.3/cmake-3.15.3.tar.gz" "cmake-3.15.3.tar.gz"
-#	cd $PACKAGES/cmake-3.15.3
-#	execute ./configure --prefix=${WORKSPACE}
-#	execute gmake
-#	execute gmake install
-#fi
 
-#cd ${PACKAGES}
-#pwd
-#git clone https://aomedia.googlesource.com/aom
-#${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
-#make
-#make install
-
+if build "av1"; then
+	cd ${PACKAGES}
+	pwd
+	git clone https://aomedia.googlesource.com/aom
+	${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
+	make
+	make install
+	build_done "av1"
+fi
 
 
 if build "python"; then
@@ -278,8 +281,8 @@ if build "opencore"; then
 fi
 
 if build "libvpx"; then
-    download "https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz" "libvpx-1.7.0.tar.gz"
-    cd $PACKAGES/libvpx-1.7.0 || exit
+    download "https://github.com/webmproject/libvpx/archive/master.zip" "libvpx-master.zip"
+    cd $PACKAGES/libvpx-master || exit
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "Applying Darwin patch"
@@ -311,7 +314,7 @@ if build "xvidcore"; then
 fi
 
 if build "x264"; then
-	download "http://ftp.videolan.org/pub/x264/snapshots/x264-snapshot-20190408-2245-stable.tar.bz2" "last_x264.tar.bz2"
+	download "http://ftp.videolan.org/pub/x264/snapshots/last_stable_x264.tar.bz2" "last_stable_x264.tar.bz2"
 	cd $PACKAGES/x264-snapshot-* || exit
 
 	if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -327,8 +330,8 @@ if build "x264"; then
 fi
 
 if build "libogg"; then
-	download "http://downloads.xiph.org/releases/ogg/libogg-1.3.3.tar.gz" "libogg-1.3.3.tar.gz"
-	cd $PACKAGES/libogg-1.3.3 || exit
+	download "http://downloads.xiph.org/releases/ogg/libogg-1.3.4.tar.gz" "libogg-1.3.4.tar.gz"
+	cd $PACKAGES/libogg-1.3.4 || exit
 	execute ./configure --prefix=${WORKSPACE} --enable-shared
 	execute make -j $MJOBS
 	execute make install
@@ -529,6 +532,7 @@ if build "fft3dfilter"; then
         build_done "fft3dfilter"
 fi
 
+sed -i "s|pwd_dir|$PWD|g" set-env.sh
 
 #if [[ $AUTOINSTALL == "yes" ]]; then
 #	if command_exists "sudo"; then
