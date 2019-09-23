@@ -15,6 +15,7 @@ sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-
 ```
 CentOS
 ```bash
+yum groupinstall "Development Tools"
 yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel nasm SDL2 SDL-dev libxext-dev
 ```
 
