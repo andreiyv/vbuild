@@ -238,8 +238,8 @@ fi
 
 
 if build "python"; then
-	download "https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz" "Python-3.7.4.tgz"
-	cd $PACKAGES/Python-3.7.4
+	download "https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz" "Python-3.6.2.tgz"
+	cd $PACKAGES/Python-3.6.2
 	execute ./configure --prefix=${WORKSPACE}  --enable-shared
 	execute make
 	execute make install
