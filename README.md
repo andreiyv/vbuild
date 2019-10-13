@@ -1,4 +1,4 @@
-# vbuild v0.2.1
+# vbuild v0.2.2
 Vapoursynth build script for Ubuntu 18.04 and CentOS 7.6
 
 You will receive Vapoursynth + filters + ffmpeg/ffplay/ffprobe when installation completed.
@@ -37,5 +37,5 @@ cd tests
 ./decompose # split image on to 3 layers (L + U + V)
 ./denoise # using of noise removal filter (FFTW3d) with extra settings (soft effect)
 ./60fps # convert from 25->50fps or 30->60fps using SVP Team libraries
-./av1 # convert using av1 codec
+# ./av1 # convert using av1 codec - currently disabled
 ```

@@ -217,24 +217,24 @@ export LD_LIBRARY_PATH=${WORKSPACE}/lib64:$LD_LIBRARY_PATH
 
 
 
-if build "cmake"; then
-	download "https://github.com/Kitware/CMake/archive/release.zip" "CMake-release.zip"
-	cd $PACKAGES/CMake-release
-	execute ./configure --prefix=${WORKSPACE}
-	execute gmake
-	execute gmake install
-	build_done "cmake"
-fi
+#if build "cmake"; then
+#	download "https://github.com/Kitware/CMake/archive/release.zip" "CMake-release.zip"
+#	cd $PACKAGES/CMake-release
+#	execute ./configure --prefix=${WORKSPACE}
+#	execute gmake
+#	execute gmake install
+#	build_done "cmake"
+#fi
 
 
-if build "av1"; then
-	cd ${PACKAGES}
-	execute git clone https://aomedia.googlesource.com/aom
-	execute ${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
-	execute make
-	execute make install
-	build_done "av1"
-fi
+#if build "av1"; then
+#	cd ${PACKAGES}
+#	execute git clone https://aomedia.googlesource.com/aom
+#	execute ${WORKSPACE}/bin/cmake ${PACKAGES}/aom -DCMAKE_INSTALL_PREFIX=${WORKSPACE} -DBUILD_SHARED_LIBS=1
+#	execute make
+#	execute make install
+#	build_done "av1"
+#fi
 
 
 if build "python"; then
@@ -470,8 +470,8 @@ cd $PACKAGES/ffmpeg-4.2.1 || exit
 	--enable-libopencore_amrwb \
 	--enable-libopencore_amrnb \
 	--enable-filters \
-	--enable-libaom \
 	--enable-sdl2
+#	--enable-libaom \
 	# enable all filters
 	# enable AAC de/encoding via libfdk-aac [no]
 	# enable detecting cpu capabilities at runtime (smaller binary)
