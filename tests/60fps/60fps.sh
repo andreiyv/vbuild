@@ -17,5 +17,5 @@ else
 
 fi
 
-vspipe --y4m 60fps.pvy - | ffplay -i pipe:
-
+vspipe --y4m 60fps.pvy - | ffmpeg -i pipe: -c:a copy -c:v libx264 -crf 20 -preset slow 60fps.mp4
+#vspipe --y4m 60fps.pvy - | ffplay -i pipe:
