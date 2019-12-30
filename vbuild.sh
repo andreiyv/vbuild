@@ -3,8 +3,7 @@
 # this script is based on:
 # https://github.com/markus-perl/ffmpeg-build-script
 
-#sudo apt-get assume-yes install build-essential
-#sudo apt-get update && sudo apt-get --assume-yes install curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev libffi-dev
+#sudo apt-get update && sudo apt-get --assume-yes install build-essential curl libssl-dev zlib1g-dev autoconf libtool autogen shtool pkg-config nasm yasm cmake libsdl2-2.0 libsdl2-dev libffi-dev
 
 VERSION=1.0
 CWD=$(pwd)
@@ -186,10 +185,10 @@ if ! command_exists "make"; then
     exit 1
 fi
 
-if ! command_exists "gmake"; then
-    echo "gmake not installed.";
-    exit 1
-fi
+#if ! command_exists "gmake"; then
+#    echo "gmake not installed.";
+#    exit 1
+#fi
 
 
 if ! command_exists "g++"; then
@@ -319,7 +318,7 @@ if build "xvidcore"; then
 fi
 
 if build "x264"; then
-	download "http://ftp.videolan.org/pub/x264/snapshots/last_stable_x264.tar.bz2" "last_stable_x264.tar.bz2"
+	download "http://ftp.videolan.org/pub/x264/snapshots/x264-snapshot-20191214-2245-stable.tar.bz2" "x264-snapshot.tar.bz2"
 	cd $PACKAGES/x264-snapshot-* || exit
 
 	if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -420,8 +419,8 @@ fi
 
 
 if build "vapoursynth"; then
-	download "https://github.com/vapoursynth/vapoursynth/archive/R47.2.zip" "vapoursynth.zip"
-	cd $PACKAGES/vapoursynth-R47.2
+	download "https://github.com/vapoursynth/vapoursynth/archive/R48.zip" "vapoursynth.zip"
+	cd $PACKAGES/vapoursynth-R48
 	execute ./autogen.sh
 	execute ./configure --prefix=${WORKSPACE} --enable-shared --with-cython=${WORKSPACE}/bin/cython
 	execute make
@@ -537,7 +536,8 @@ if build "fft3dfilter"; then
         build_done "fft3dfilter"
 fi
 
-sed -i "s|pwd_dir|$CWD|g" ${CWD}/set-env.sh
+sed -i "s|pwd_dir|$CWD|g" ${CWD}/set-env.template
+cp ${CWD}/set-env.template ${CWD}/set-env.sh
 
 #if [[ $AUTOINSTALL == "yes" ]]; then
 #	if command_exists "sudo"; then
