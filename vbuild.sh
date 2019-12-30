@@ -536,8 +536,12 @@ if build "fft3dfilter"; then
         build_done "fft3dfilter"
 fi
 
-sed -i "s|pwd_dir|$CWD|g" ${CWD}/set-env.template
 cp ${CWD}/set-env.template ${CWD}/set-env.sh
+sed -i "s|pwd_dir|$CWD|g" ${CWD}/set-env.sh
+
+ln -s ~/SVP\ 4/plugins/libsvpflow1_vs64.so ${CWD}/workspace/lib/vapoursynth
+ln -s ~/SVP\ 4/plugins/libsvpflow2_vs64.so ${CWD}/workspace/lib/vapoursynth
+
 
 #if [[ $AUTOINSTALL == "yes" ]]; then
 #	if command_exists "sudo"; then
