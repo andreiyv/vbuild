@@ -20,5 +20,9 @@ ffmpeg -i DATASAT_51_71_DTS-HD_MA-thedigitaltheater.mkv -map 0:3 -c pcm_s24le st
     Stream #0:0: Audio: dts (DTS-HD MA), 48000 Hz, 7.1, s32p (24 bit)
     Stream #0:0: Audio: pcm_s24le ([1][0][0][0] / 0x0001), 48000 Hz, stereo, s32 (24 bit), 2304 kb/s
 
+
+ffmpeg -i test5.mkv -map 0:s:0 steram-2.srt
+
+
 mkvmerge stream-0.h264 stream-1.dts stream-2.dts stream-3.wav -o video.mkv
 
