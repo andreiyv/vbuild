@@ -2,21 +2,25 @@
 
 STREAMS=$(ffprobe -i test5.mkv 2>&1 | egrep Stream)
 
+demuxer="ffmpeg -i test5.mkv -y -c copy -map " 
+
 while IFS= read -r line; do
-    echo "$line"
+
+case $line in
+     *"h264"*)
+          demuxer+="0:0 stream-0.h264" 
+          ;;
+     *"aac"*)
+          echo "aac"
+          ;;
+     *"Subtitle"*)
+          echo "Subtitle"
+          ;; 
+     *)
+          ;;
+esac
+
 done <<< "$STREAMS"
 
-#case $STREAMS in
-#     h264)
-#          echo "Я тоже знаю Ubuntu! Эта система основана на Debian."
-#          ;;
-#     centos|rhel)
-#          echo "Эй! Это мой любимый серверный дистрибутив!"
-#          ;;
-#     windows)
-#          echo "Очень смешно..."
-#          ;; 
-#     *)
-#          echo "Хмм, кажется я никогда не использовал этот дистрибутив."
-#          ;;
-#esac
+echo "$demuxer"
+
