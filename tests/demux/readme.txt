@@ -26,3 +26,4 @@ ffmpeg -i test5.mkv -map 0:s:0 steram-2.srt
 
 mkvmerge stream-0.h264 stream-1.dts stream-2.dts stream-3.wav -o video.mkv
 
+ffprobe -i test5.mkv 2>&1 | egrep -o 'Stream #[0-9]+:[0-9]+' | sed -r 's/Stream \#//'
