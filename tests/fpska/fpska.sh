@@ -1,16 +1,9 @@
 CWD=$(pwd)
 
-
-# --------------------------------------------------------------------------------
-
 demuxer() {
 
 video=$1
-
-echo $video
-
 STREAMS=$(ffprobe -i $video 2>&1 | egrep Stream)
-
 demuxer="ffmpeg -hide_banner -loglevel panic -i $1 -y " 
 
 while IFS= read -r line; do
@@ -25,6 +18,9 @@ case $line in
      *"mpeg4"*)
           demuxer+="-map $map -c copy tmp/video-stream-$snumber.mp4 "
           ;;
+     *"flv"*)
+          demuxer+="-map $map -c copy tmp/video-stream-$snumber.h264 "
+          ;;
      *"aac"*)
           demuxer+="-map $map -c copy tmp/audio-stream-$snumber.aac "
           ;;
@@ -35,7 +31,7 @@ case $line in
           demuxer+="-map $map -c copy tmp/video-stream-$snumber.wmv "
           ;;
      *"wmav2"*)
-          demuxer+="-map $map -c copy tmp/audio-stream-$snumber.wma "
+          demuxer+="-map $map -acodec vorbis tmp/audio-stream-$snumber.ogg "
           ;;
      *"mp3"*)
           demuxer+="-map $map -c copy tmp/audio-stream-$snumber.mp3 "
@@ -54,8 +50,6 @@ case $line in
 esac
 
 done <<< "$STREAMS"
-
-echo "$demuxer"
 
 $demuxer
 
@@ -82,26 +76,31 @@ $mkv
 
 
 
+echo -----------------------------------------------
+echo Fpska v0.3
+echo -----------------------------------------------
+
 rm -rf tmp
 mkdir tmp
 
-echo ${CWD}/$1
-demuxer ${CWD}/$1
-echo ---------------------------------------------------------------------------
+echo Input Media: $(realpath -e $1)
+
+echo Split media on separate streams
+demuxer $(realpath -e $1)
 
 video_stream=$(find tmp -name "video*")
-echo ${CWD}/$video_stream
 
 cp ${CWD}/60fps/60fps.template ${CWD}/60fps/60fps.pvy
 
 sed -i "s|\$VIDEO|${CWD}\/$video_stream|g" ${CWD}/60fps/60fps.pvy
 
-#cd ${CWD}/60fps
-#pwd
-60fps/60fps.sh
+echo Convert to 60 fps
+cd ${CWD}/60fps
+./60fps.sh
+cd ../
 
-#cd ${CWD}/tmp
 rm -f tmp/video-stream*
 
-muxer ${CWD}/$1
+echo Combine streams into mkv
+muxer $(realpath -e $1 | xargs basename)
 
