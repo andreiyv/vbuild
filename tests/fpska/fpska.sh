@@ -1,5 +1,29 @@
 CWD=$(pwd)
 
+check_files() {
+    svp_link1="${CWD}/workspace/lib/vapoursynth/libsvpflow1_vs64.so"	
+    svp_link2="${CWD}/workspace/lib/vapoursynth/libsvpflow2_vs64.so"
+
+    echo $svp_link1
+    exit
+
+    if [ -L ${svp_link1} ] ; then
+       if [ -e ${svp_link1} ] ; then
+           echo "libsvpflow1_vs64.so установлена и доступна через symbolic link"
+       else
+           echo "неправильная ссылка на libsvpflow1_vs64.so"
+       fi
+    elif [ -e ${my_link} ] ; then
+        echo "libsvpflow1_vs64.so установлена и доступна"
+    else
+        echo "нет ссылки на libsvpflow1_vs64.so, \
+	установите https://www.svp-team.com/files/svp4-linux.4.3.180.tar.bz2 в домашнюю директорию, \
+       	запустите vbuild.sh еще раз или \
+	вручную создайте ссылку"
+	exit
+    fi	
+}
+
 demuxer() {
 
 video=$1
@@ -80,6 +104,8 @@ echo ------------------------------------------------------
 echo Fpska v0.8
 echo ------------------------------------------------------
 
+check_files
+
 rm -rf tmp
 mkdir tmp
 
@@ -114,4 +140,6 @@ rm -f tmp/ffprobe.log
 echo ------------------------------------------------------
 echo Собираем видео/звук/субтитры в контейнер mkv
 muxer $(realpath -e $1 | xargs basename)
+
+rm -rf tmp
 
