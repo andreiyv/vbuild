@@ -1,25 +1,24 @@
 CWD=$(pwd)
 
 check_files() {
-    svp_link1="${CWD}/workspace/lib/vapoursynth/libsvpflow1_vs64.so"	
-    svp_link2="${CWD}/workspace/lib/vapoursynth/libsvpflow2_vs64.so"
+    svp_link1="${VBUILD}/workspace/lib/vapoursynth/libsvpflow1_vs64.so"	
+    svp_link2="${VBUILD}/workspace/lib/vapoursynth/libsvpflow2_vs64.so"
 
-    echo $svp_link1
-    exit
+    echo "svp_link1: ${svp_link1}"
 
     if [ -L ${svp_link1} ] ; then
-       if [ -e ${svp_link1} ] ; then
+#       if [ -e ${svp_link1} ] ; then
            echo "libsvpflow1_vs64.so установлена и доступна через symbolic link"
-       else
-           echo "неправильная ссылка на libsvpflow1_vs64.so"
-       fi
-    elif [ -e ${my_link} ] ; then
-        echo "libsvpflow1_vs64.so установлена и доступна"
+#       else
+#           echo "неправильная ссылка на libsvpflow1_vs64.so"
+#       fi
+#    elif [ -e ${svp_link1} ] ; then
+#        echo "libsvpflow1_vs64.so установлена и доступна"
     else
-        echo "нет ссылки на libsvpflow1_vs64.so, \
-	установите https://www.svp-team.com/files/svp4-linux.4.3.180.tar.bz2 в домашнюю директорию, \
-       	запустите vbuild.sh еще раз или \
-	вручную создайте ссылку"
+        echo "нет ссылки на libsvpflow1_vs64.so,
+	установите https://www.svp-team.com/files/svp4-linux.4.3.180.tar.bz2 в домашнюю (/home/username/SVP-4) директорию,  
+запустите vbuild.sh еще раз или 
+вручную создайте ссылку"
 	exit
     fi	
 }
