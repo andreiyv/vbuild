@@ -1,3 +1,4 @@
 workspace
 packages
 *.ffindex
+tests/fpska/tmp

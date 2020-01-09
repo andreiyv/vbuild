@@ -49,6 +49,8 @@ elif abs(float(fps)-50.0) < 0.1:
 else:
     print("fpska ne rabotaet s takim fps")
 
+print("num: ", num)
+print("den: ", den)
 
 with open(sys.argv[2]) as fd1, open(sys.argv[3], 'w') as fd2:
     for line in fd1:
@@ -61,11 +63,12 @@ except WindowsError:
     os.remove(sys.argv[2])
     os.rename(sys.argv[3], sys.argv[2])
 
-varg = '''--Inform=Video;%%FrameCount%%'''
-process = Popen([sys.argv[4], varg, sys.argv[5]], stdout=PIPE)
-(output, err) = process.communicate()
-exit_code = process.wait()
-nframes=re.sub('[^0-9]', '', str(output))
+#varg = '''--Inform=Video;%%FrameCount%%'''
+#process = Popen([sys.argv[4], varg, sys.argv[5]], stdout=PIPE)
+#(output, err) = process.communicate()
+#exit_code = process.wait()
+#nframes=re.sub('[^0-9]', '', str(output))
+nframes=sys.argv[4]
 print("\nЧастота кадров в исходном видео: ", fps, "fps")
 print("Количество кадров в исходном видео: ", nframes)
 
