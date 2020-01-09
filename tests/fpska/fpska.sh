@@ -64,7 +64,7 @@ filename="${filename%.*}"
 files=$( ls tmp/* )
 
 counter=0
-mkv="mkvmerge "
+mkv="mkvmerge -q "
 for i in $files ; do
   mkv+="$i "
 done
@@ -76,20 +76,23 @@ $mkv
 
 
 
-echo -----------------------------------------------
+echo ------------------------------------------------------
 echo Fpska v0.8
-echo -----------------------------------------------
+echo ------------------------------------------------------
 
 rm -rf tmp
 mkdir tmp
 
-echo Input Media: $(realpath -e $1)
+echo Файл для конвертации: $(realpath -e $1)
 
-echo Split media on separate streams
+echo ------------------------------------------------------
+echo Извлекаем видео/звук/субтитры
 demuxer $(realpath -e $1)
 
 video_stream=$(find tmp -name "video*")
 
+echo ------------------------------------------------------
+echo Устанавливаем параметры конвертации в 60 fps
 cp ${CWD}/60fps/60fps.template ${CWD}/60fps/60fps.pvy
 
 sed -i "s|\$VIDEO|${CWD}\/$video_stream|g" ${CWD}/60fps/60fps.pvy
@@ -98,15 +101,17 @@ ffprobe $(realpath -e $1) &> ${CWD}/tmp/ffprobe.log
 
 python3 ${CWD}/60fps/setfps.py ${CWD}/tmp/ffprobe.log ${CWD}/60fps/60fps.pvy ${CWD}/60fps/s.txt $(ffprobe -i ${CWD}/$video_stream -print_format json -loglevel fatal -show_streams -count_frames -select_streams v | grep nb_read_frames | sed -e 's/.*\"nb_read_frames\": "//' | sed -e 's/\"\,//')
 
-exit
-
-echo Convert to 60 fps
+echo ------------------------------------------------------
+echo Конвертация в 60 fps
 cd ${CWD}/60fps
 ./60fps.sh
 cd ../
 
 rm -f tmp/video-stream*
 
-echo Combine streams into mkv
+rm -f tmp/ffprobe.log
+
+echo ------------------------------------------------------
+echo Собираем видео/звук/субтитры в контейнер mkv
 muxer $(realpath -e $1 | xargs basename)
 

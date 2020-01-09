@@ -49,8 +49,8 @@ elif abs(float(fps)-50.0) < 0.1:
 else:
     print("fpska ne rabotaet s takim fps")
 
-print("num: ", num)
-print("den: ", den)
+#print("num: ", num)
+#print("den: ", den)
 
 with open(sys.argv[2]) as fd1, open(sys.argv[3], 'w') as fd2:
     for line in fd1:
