@@ -77,7 +77,7 @@ $mkv
 
 
 echo -----------------------------------------------
-echo Fpska v0.3
+echo Fpska v0.8
 echo -----------------------------------------------
 
 rm -rf tmp
@@ -93,6 +93,12 @@ video_stream=$(find tmp -name "video*")
 cp ${CWD}/60fps/60fps.template ${CWD}/60fps/60fps.pvy
 
 sed -i "s|\$VIDEO|${CWD}\/$video_stream|g" ${CWD}/60fps/60fps.pvy
+
+ffprobe $(realpath -e $1) &> ${CWD}/tmp/ffprobe.log
+
+python3 ${CWD}/60fps/setfps.py ${CWD}/tmp/ffprobe.log ${CWD}/60fps/60fps.pvy ${CWD}/60fps/s.txt mediainfo ${CWD}/$video_stream
+
+exit
 
 echo Convert to 60 fps
 cd ${CWD}/60fps
