@@ -2,3 +2,4 @@ workspace
 packages
 *.ffindex
 tests/fpska/tmp
+set-env.sh

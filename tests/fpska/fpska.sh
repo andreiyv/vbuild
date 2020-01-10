@@ -1,26 +1,24 @@
+#!/bin/bash
+
 CWD=$(pwd)
 
 check_files() {
     svp_link1="${VBUILD}/workspace/lib/vapoursynth/libsvpflow1_vs64.so"	
     svp_link2="${VBUILD}/workspace/lib/vapoursynth/libsvpflow2_vs64.so"
 
-    echo "svp_link1: ${svp_link1}"
+    svp_lib_error="Нет ссылок на libsvpflow1_vs64.so или libsvpflow2_vs64.so
+------------------------------------------------------
+Чтобы исправить ошибку:
+1) установите программу SVP (https://www.svp-team.com/files/svp4-linux.4.3.180.tar.bz2) в домашнюю (/home/username/SVP-4) директорию;  
+2) запустите vbuild.sh еще раз или вручную создайте ссылки:
+ln -s ~/SVP\ 4/plugins/libsvpflow1_vs64.so ${VBUILD}/workspace/lib/vapoursynth
+ln -s ~/SVP\ 4/plugins/libsvpflow2_vs64.so ${VBUILD}/workspace/lib/vapoursynth"
 
-    if [ -L ${svp_link1} ] ; then
-#       if [ -e ${svp_link1} ] ; then
-           echo "libsvpflow1_vs64.so установлена и доступна через symbolic link"
-#       else
-#           echo "неправильная ссылка на libsvpflow1_vs64.so"
-#       fi
-#    elif [ -e ${svp_link1} ] ; then
-#        echo "libsvpflow1_vs64.so установлена и доступна"
-    else
-        echo "нет ссылки на libsvpflow1_vs64.so,
-	установите https://www.svp-team.com/files/svp4-linux.4.3.180.tar.bz2 в домашнюю (/home/username/SVP-4) директорию,  
-запустите vbuild.sh еще раз или 
-вручную создайте ссылку"
+    if [[ ! -L ${svp_link1} || ! -L ${svp_link2} ]] ; then
+        echo "$svp_lib_error"
 	exit
     fi	
+    
 }
 
 demuxer() {
@@ -104,6 +102,12 @@ echo Fpska v0.8
 echo ------------------------------------------------------
 
 check_files
+
+if [ ! $1 ] ; then
+    echo "забыли указать файл для конвертации в 60 fps"
+    echo "fpska.sh /path/to/file/video.mp4"
+    exit  
+fi
 
 rm -rf tmp
 mkdir tmp
