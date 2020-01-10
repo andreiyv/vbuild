@@ -275,14 +275,14 @@ if build "nasm"; then
 	build_done "nasm"
 fi
 
-if build "opencore"; then
-	download "http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz" "opencore-amr-0.1.5.tar.gz"
-	cd $PACKAGES/opencore-amr-0.1.5 || exit
-	execute ./configure --prefix=${WORKSPACE} --enable-shared
-	execute make -j $MJOBS
-	execute make install
-	build_done "opencore"
-fi
+#if build "opencore"; then
+#	download "http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz" "opencore-amr-0.1.5.tar.gz"
+#	cd $PACKAGES/opencore-amr-0.1.5 || exit
+#	execute ./configure --prefix=${WORKSPACE} --enable-shared
+#	execute make -j $MJOBS
+#	execute make install
+#	build_done "opencore"
+#fi
 
 if build "libvpx"; then
     download "https://github.com/webmproject/libvpx/archive/master.zip" "libvpx-master.zip"
@@ -466,10 +466,10 @@ cd $PACKAGES/ffmpeg-4.2.1 || exit
 	--enable-libx265 \
 	--enable-runtime-cpudetect \
 	--enable-avfilter \
-	--enable-libopencore_amrwb \
-	--enable-libopencore_amrnb \
 	--enable-filters \
 	--enable-sdl2
+#	--enable-libopencore_amrwb \
+#	--enable-libopencore_amrnb \
 #	--enable-libaom \
 	# enable all filters
 	# enable AAC de/encoding via libfdk-aac [no]
