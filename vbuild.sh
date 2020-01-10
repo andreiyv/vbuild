@@ -387,8 +387,8 @@ fi
 
 
 if build "x265"; then
-	download "https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz" "x265-3.0.tar.gz"
-	cd $PACKAGES/x265_3.0 || exit
+	download "https://bitbucket.org/multicoreware/x265/downloads/x265_3.2.1.tar.gz" "x265-3.2.1.tar.gz"
+	cd $PACKAGES/x265_3.2.1 || exit
 	cd source || exit
 	execute cmake -DCMAKE_INSTALL_PREFIX:PATH=${WORKSPACE} -DENABLE_SHARED:bool=on .
 	execute make -j $MJOBS

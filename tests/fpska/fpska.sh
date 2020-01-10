@@ -74,6 +74,10 @@ done <<< "$STREAMS"
 
 $demuxer
 
+if [ "$?" -ne "0" ] ; then
+    echo "ошибка извлечения видео/звука/субтитров"
+fi
+
 }
 
 muxer() {
@@ -92,6 +96,10 @@ done
 mkv+="-o $filename-60fps.mkv"
 
 $mkv
+
+if [ "$?" -ne "0" ] ; then
+    echo "ошибка создания контейнера mkv"
+fi
 
 }
 

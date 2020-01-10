@@ -3,3 +3,16 @@ packages
 *.ffindex
 tests/fpska/tmp
 set-env.sh
+*.avi
+*.h264
+*.mp4
+*.mov
+*.mkv
+*.divx
+*.xvid
+*.aac
+*.ffindex
+*.zip
+*.7z
+*.log
+*.url
