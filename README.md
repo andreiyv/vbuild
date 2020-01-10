@@ -3,9 +3,6 @@ Vapoursynth build script for Ubuntu 18.04 and CentOS 7.6
 
 You will receive Vapoursynth + filters + ffmpeg/ffplay/ffprobe when installation completed.
 
-Next standalone applications will be available:
-
-
 # Required packages
 Ubuntu
 ```bash
@@ -36,6 +33,6 @@ cd tests
 ./histogram # lightness and color distribution
 ./decompose # split image on to 3 layers (L + U + V)
 ./denoise # using of noise removal filter (FFTW3d) with extra settings (soft effect)
-./60fps # convert from 25->50fps or 30->60fps using SVP Team libraries
+./fpska # convert to 60fps using SVP Team libraries (need manual installation of SVP https://www.svp-team.com/files/svp4-linux.4.3.180.tar.bz2 strictly into $HOME folder) 
 # ./av1 # convert using av1 codec - currently disabled
 ```
